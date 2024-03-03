@@ -32,18 +32,28 @@ except Exception as error:
     valid_record = True
     error_message = ''
 
-        # Extract the customer ID from the first column
+    # Extract the customer ID from the first column
     customer_id = row[0]
+
+# code before data validation modification
+for row in reader:
         
         # Extract the transaction type from the second column
-    transaction_type = row[1]
-        ### VALIDATION 1 ###
+     ### VALIDATION 1 ###
+    if row[1] not in valid_transaction_types:
+         valid_record = False
+         error_message += f"Invalid transaction type for Customer {row[0]}: {row[1]}. "
+    
 
         # Extract the transaction amount from the third column
         ### VALIDATION 2 ###
+try:       
     transaction_amount = float(row[2])
+except ValueError:
+     valid_record = False
+     error_message += f"Non-numeric transaction amount for Customer {row[0]}: {row[2]}. "
 
-    if valid_record:
+if valid_record:
             # Initialize the customer's account balance if it doesn't already exist
             if customer_id not in customer_data:
                 customer_data[customer_id] = {'balance': 0, 'transactions': []}
