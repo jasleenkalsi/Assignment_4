@@ -1,8 +1,8 @@
 """
 Description: A program that reads through transaction records and reports the results.
 Author: ACE Faculty
-Edited by: Jasleen kaur
-Date: 02-03-2024
+Edited by: {Student Name}
+Date: {Date}
 Usage: This program will read transaction data from a .csv file, summarize and 
 report the results.
 """
@@ -19,27 +19,31 @@ valid_record = True
 error_message = ''
 
 os.system('cls' if os.name == 'nt' else 'clear')
+try:
+     with open('bank_data.csv', 'r') as csv_file:
+         reader = csv.reader(csv_file)
 
-
-with open('bank_data.csv', 'r') as csv_file:
-    reader = csv.reader(csv_file)
-    for row in reader:
         # Reset valid record and error message for each iteration
-        valid_record = True
-        error_message = ''
+except FileNotFoundError as file_error:
+     print(f"ERROR: {file_error} - The input file could not be located.")
+     
+except Exception as error:
+    print(f"ERROR: {error} - An unexpected error occurred during program execution.")
+    valid_record = True
+    error_message = ''
 
         # Extract the customer ID from the first column
-        customer_id = row[0]
+    customer_id = row[0]
         
         # Extract the transaction type from the second column
-        transaction_type = row[1]
+    transaction_type = row[1]
         ### VALIDATION 1 ###
 
         # Extract the transaction amount from the third column
         ### VALIDATION 2 ###
-        transaction_amount = float(row[2])
+    transaction_amount = float(row[2])
 
-        if valid_record:
+    if valid_record:
             # Initialize the customer's account balance if it doesn't already exist
             if customer_id not in customer_data:
                 customer_data[customer_id] = {'balance': 0, 'transactions': []}
