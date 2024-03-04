@@ -8,6 +8,7 @@ report the results.
 """
 import csv
 import os
+from sqlite3 import Row
  
 valid_transaction_types = ['deposit', 'withdraw']
 customer_data = {}
@@ -19,6 +20,7 @@ valid_record = True
 error_message = ''
 
 os.system('cls' if os.name == 'nt' else 'clear')
+
 try:
      with open('bank_data.csv', 'r') as csv_file:
          reader = csv.reader(csv_file)
@@ -32,8 +34,8 @@ except Exception as error:
     valid_record = True
     error_message = ''
 
-    # Extract the customer ID from the first column
-    customer_id = row[0]
+ # Extract the customer ID from the first column
+    customer_id = float(Row[0])
 
 # code before data validation modification
 for row in reader:
@@ -46,6 +48,7 @@ for row in reader:
     
 
         # Extract the transaction amount from the third column
+         
         ### VALIDATION 2 ###
 try:       
     transaction_amount = float(row[2])
@@ -59,17 +62,32 @@ if valid_record:
                 customer_data[customer_id] = {'balance': 0, 'transactions': []}
 
             # Update the customer's account balance based on the transaction type
-            elif transaction_type == 'deposit':
+            elif valid_transaction_types == 'deposit':
                 customer_data[customer_id]['balance'] += transaction_amount
                 transaction_count += 1
                 total_transaction_amount += transaction_amount
-            elif transaction_type == 'withdrawal':
+            elif valid_transaction_types == 'withdrawal':
                 customer_data[customer_id]['balance'] += transaction_amount
                 transaction_count += 1
                 total_transaction_amount += transaction_amount
             
             # Record  transactions in the customer's transaction history
-            customer_data[customer_id]['transactions'].append((transaction_amount, transaction_type))
+            customer_data[customer_id]['transactions'].append((transaction_amount, valid_transaction_types))
+
+# Existing code before collecting invalid records modification
+for row in reader:
+    valid_record = True
+    error_message = ""
+
+    # Existing code for processing each row
+
+    if valid_record:
+    else:
+        # Existing code for processing valid records
+    
+        ### COLLECT INVALID RECORDS ###
+        invalid_record = (row, error_message)
+        rejected_records.append(invalid_record)
         
         ### COLLECT INVALID RECORDS ###
         

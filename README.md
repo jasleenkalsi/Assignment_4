@@ -15,3 +15,4 @@ we will use the exception handling appropriately to improve the quality of the p
 
 ## Code Modification
 Initialise the try except code as the file could not be found in the code .
+use if statements to collect invalid records.
