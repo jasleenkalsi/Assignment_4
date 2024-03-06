@@ -1,8 +1,8 @@
 """
 Description: A program that reads through transaction records and reports the results.
 Author: ACE Faculty
-Edited by: {Student Name}
-Date: {Date}
+Edited by: Jasleen kaur
+Date: 05-03-2024
 Usage: This program will read transaction data from a .csv file, summarize and 
 report the results.
 """
@@ -37,7 +37,8 @@ except Exception as error:
  # Extract the customer ID from the first column
     customer_id = float(Row[0])
 
-# code before data validation modification
+
+# code before data validation modifi
 for row in reader:
         
         # Extract the transaction type from the second column
@@ -54,7 +55,7 @@ try:
     transaction_amount = float(row[2])
 except ValueError:
      valid_record = False
-     error_message += f"Non-numeric transaction amount for Customer {row[0]}: {row[2]}. "
+     error_message += "Non-numeric transaction amount."
 
 if valid_record:
             # Initialize the customer's account balance if it doesn't already exist
@@ -70,29 +71,14 @@ if valid_record:
                 customer_data[customer_id]['balance'] += transaction_amount
                 transaction_count += 1
                 total_transaction_amount += transaction_amount
-            
+        
             # Record  transactions in the customer's transaction history
-            customer_data[customer_id]['transactions'].append((transaction_amount, valid_transaction_types))
-
-# Existing code before collecting invalid records modification
-for row in reader:
-    valid_record = True
-    error_message = ""
-
-    # Existing code for processing each row
-
-    if valid_record:
-    else:
-        # Existing code for processing valid records
-    
-        ### COLLECT INVALID RECORDS ###
-        invalid_record = (row, error_message)
-        rejected_records.append(invalid_record)
-        
-        ### COLLECT INVALID RECORDS ###
-        
-
-
+            customer_data[customer_id]['transactions'].append((transaction_amount, valid_transaction_types)) 
+else:
+        # Collect invalid records
+        invalid_record_tuple = (row, error_message)
+        rejected_records.append(invalid_record_tuple)
+ 
 print("PiXELL River Transaction Report\n===============================\n")
 # Print the final account balances for each customer
 for customer_id, data in customer_data.items():
