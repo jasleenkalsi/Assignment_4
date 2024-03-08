@@ -1,14 +1,5 @@
-"""
-Description: A program that reads through transaction records and reports the results.
-Author: ACE Faculty
-Edited by: Jasleen kaur
-Date: 05-03-2024
-Usage: This program will read transaction data from a .csv file, summarize and 
-report the results.
-"""
 import csv
 import os
-from sqlite3 import Row
  
 valid_transaction_types = ['deposit', 'withdraw']
 customer_data = {}
@@ -18,11 +9,11 @@ transaction_counter = 0
 total_transaction_amount = 0
 valid_record = True
 error_message = ''
-
+ 
 os.system('cls' if os.name == 'nt' else 'clear')
  
 try:
-    with open('bank_data copy.csv', 'r') as csv_file:
+    with open('new_bank_data.csv', 'r') as csv_file:
         reader = csv.reader(csv_file)
         # skiping the header row
         next(reader, None)
